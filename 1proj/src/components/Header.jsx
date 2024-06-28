@@ -1,8 +1,21 @@
 import React from 'react'
+import "../styles/Header.scss";
+import { HashLink } from 'react-router-hash-link';
+
+
 
 function Header() {
   return (
-    <div>Header</div>
+    <nav>
+      <h1>MY App</h1>
+      <main>
+      <HashLink to={"/#home"}>Home</HashLink>
+      <HashLink to={"/#about"}>About</HashLink>
+      <HashLink to={"/contact"}>Contact</HashLink>
+      <HashLink to={"/#brands"}>Brands</HashLink>
+      <HashLink to={"/#services"}>Services</HashLink>
+      </main>
+    </nav>
   )
 }
 
