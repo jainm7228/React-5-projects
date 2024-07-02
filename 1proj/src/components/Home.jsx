@@ -22,7 +22,7 @@ const Home = () => {
         <img src={vg} alt="Grapics" />
         <div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore quam, animi quidem maiores, quos dolorum magni neque provident, qui accusantium et dolorem enim recusandae optio eaque sint nam repellendus voluptatibus labore unde. Itaque, at? Atque voluptatum harum officia est voluptatibus nam quam? Fugiat soluta culpa omnis sequi, quaerat placeat assumenda.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore quam, animi quidem maiores, quos dolorum magni 
           </p>
         </div>
       </div>
@@ -31,7 +31,7 @@ const Home = () => {
         <div>
           <h1>Who we are?</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate repellat laudantium exercitationem laboriosam ratione, molestias dolores ad nobis. Natus placeat earum impedit deserunt recusandae temporibus pariatur maiores consequatur, explicabo ratione? Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate repellat laudantium exercitationem laboriosam ratione, molestias dolores ad nobis. Natus placeat earum impedit deserunt recusandae temporibus pariatur maiores consequatur, explicabo ratione
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate repellat laudantium 
           </p>
         </div>
       </div>
