@@ -19,6 +19,7 @@ import {
 import React, { useEffect, useState } from "react";
 
 import Loader from "./Loader";
+import Chart from "./Chart";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { server } from "..";
@@ -29,17 +30,75 @@ const CoinDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [currency, setCurrency] = useState("inr");
-  const params = useParams();
+  const [days, setDays] = useState("24h");
+  const [chartArray, setChartArray] = useState([]);
 
   const currencySymbol =
     currency === "inr" ? "₹" : currency === "eur" ? "€" : "$";
+
+  const params = useParams();
+
+  const btns = ["24h", "7d", "14d", "30d", "60d", "200d", "1y", "max"];
+  const switchChartStats = (key) => {
+    switch (key) {
+      case "24h":
+        setDays("24h");
+        setLoading(true);
+        break;
+    
+      case "7d":
+        setDays("7d");
+        setLoading(true);
+        break;
+
+      case "14d":
+        setDays("14d");
+        setLoading(true);
+        break;
+
+      case "30d":
+        setDays("30d");
+        setLoading(true);
+        break;
+
+      case "60d":
+        setDays("60d");
+        setLoading(true);
+        break;
+
+      case "200d":
+        setDays("200d");
+        setLoading(true);
+        break;
+
+      case "365d":
+        setDays("365d");
+        setLoading(true);
+        break;
+
+      case "max":
+        setDays("max");
+        setLoading(true);
+        break;
+
+      default:
+        setDays("24h");
+        setLoading(true);
+
+        break;
+    }
+  };
 
   useEffect(() => {
     const fetchcoin = async () => {
       try {
         const { data } = await axios.get(`${server}/coins/${params.id}`);
-        console.log(data);
+        const { data: chartData } = await axios.get(
+          `${server}/coins/${params.id}/market_chart?vs_currency=${currency}&days=${days}`
+        );
+
         setCoin(data);
+        setChartArray(chartData.prices);
         setLoading(false);
       } catch (error) {
         setError(true);
@@ -48,7 +107,7 @@ const CoinDetails = () => {
     };
 
     fetchcoin();
-  }, [params.id]);
+  }, [params.id, currency, days]);
 
   if (error) return <ErrorComponent message={"Error While Fetching coin"} />;
 
@@ -59,10 +118,16 @@ const CoinDetails = () => {
       ) : (
         <>
           <Box width={"full"} borderWidth={1}>
-            adsa
+            <Chart arr={chartArray} currency={currencySymbol} days={days} />
           </Box>
 
-          {/* <Button></Button> */}
+          <HStack p={"4"} wrap={"wrap"}>
+            {btns.map((i) => (
+              <Button key={i} onClick={() => switchChartStats(i)}>
+                {i}
+              </Button>
+            ))}
+          </HStack>
 
           <RadioGroup value={currency} onChange={setCurrency} p={"8"}>
             <HStack spacing={"4"}>
@@ -110,14 +175,24 @@ const CoinDetails = () => {
               low={`${currencySymbol}${coin.market_data.low_24h[currency]}`}
             />
 
-
-            <Box
-            w={"full"}
-            p={4}
-            >
-              <Item title = {"Max Supply"} value = {233212}/>
-
-
+            <Box w={"full"} p={4}>
+              <Item title={"Max Supply"} value={coin.market_data.max_supply} />
+              <Item
+                title={"Circulating Supply"}
+                value={coin.market_data.circulating_supply}
+              />
+              <Item
+                title={"Market Cap"}
+                value={`${currencySymbol}${coin.market_data.market_cap[currency]}`}
+              />
+              <Item
+                title={"All Time Low"}
+                value={`${currencySymbol}${coin.market_data.atl[currency]}`}
+              />
+              <Item
+                title={"All Time High"}
+                value={`${currencySymbol}${coin.market_data.ath[currency]}`}
+              />
             </Box>
           </VStack>
         </>
@@ -126,23 +201,14 @@ const CoinDetails = () => {
   );
 };
 
-const Item=({title,value})=>(
-  <HStack 
-  justifyContent={"space-between"}
-  w={"full"}
-  my={4}
-  >  
-    <Text
-    fontFamily={"Bebas Neue"}
-    letterSpacing={"widest"}
-    >
+const Item = ({ title, value }) => (
+  <HStack justifyContent={"space-between"} w={"full"} my={4}>
+    <Text fontFamily={"Bebas Neue"} letterSpacing={"widest"}>
       {title}
     </Text>
-    <Text>
-      {value}
-    </Text>
+    <Text>{value}</Text>
   </HStack>
-)
+);
 
 const CustomBar = ({ high, low }) => (
   <VStack w={"full"}>
