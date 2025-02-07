@@ -15,7 +15,7 @@ const Home = () => {
   };
 
   const animationProjectsCount = () => {
-    animate(0, 500, {
+    animate(0, 50, {
       duration: 1,
       onUpdate: (v) => (projectCount.current.textContent = v.toFixed()),
     });
@@ -77,7 +77,7 @@ const Home = () => {
                 ref={clientCount}
               ></motion.span>
             </p>
-            <span>Clients Worldwide</span>
+            <span></span>
           </article>
 
           <aside>

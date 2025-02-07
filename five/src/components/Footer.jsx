@@ -4,7 +4,6 @@ import {
   AiFillGithub,
   AiFillInstagram,
   AiFillLinkedin,
-  
   AiOutlineArrowUp,
 } from "react-icons/ai";
 
@@ -15,7 +14,7 @@ const Footer = () => {
         <img src={img} alt="founder" />
 
         <h2>Mayank Jain</h2>
-        <p>One piece is real</p>
+        <p>Learn till your last breath</p>
       </div>
       <aside>
         <h2>Social Media</h2>
